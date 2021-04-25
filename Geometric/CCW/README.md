@@ -43,7 +43,7 @@ long long CCW(const Point& A, const Point& B, const Point& C) {
 ```
 
 ### 2차원 평면위의 두 선분의 교차여부 판별하기
-- 두 선분의 방향성이 다른 경우
+- 두 선분이 평행하지 않은 경우
     1. 두 선분이 교차
         - ![](imgs/2.PNG)
     2. 두 선분이 교차하지 않음
