@@ -24,26 +24,26 @@ ___
 </tr>
 <tr>
 <td>가중치❌</td>
-<td>가중치가 <span style="color:yellow">양의 정수</span>일 때만 가능</td>
-<td>가중치가 <span style="color:yellow">음의 정수</span>일 때도 가능</td>
-<td>가중치가 <span style="color:yellow">음의 정수</span>일 때도 가능</td>
+<td>가중치가 <b>양의 정수</b>일 때만 가능</td>
+<td>가중치가 <b>음의 정수</b>일 때도 가능</td>
+<td>가중치가 <b>음의 정수</b>일 때도 가능</td>
 </tr>
 <tr>
-<td><span style="color:yellow">큐</span> 사용</td>
-<td><span style="color:yellow">우선순위 큐</span> 사용</td>
+<td><b>큐</b> 사용</td>
+<td><b>우선순위 큐</b> 사용</td>
 <td>동적계획법(DP) 방식<br><b>distance[n] = min(distance[n], distance[m] + E(m, n))</b></td>
 <td>동적계획법(DP) 방식<br><b>distance[start][end] = min(distance[start][end], distance[start][mid] + distance[mid][end])</b></td>
 </tr>
 <tr>
-<td>시간복잡도: <span style="color:yellow">O(E)</span></td>
-<td>시간복잡도: <span style="color:yellow">O(E*logV)</span></td>
-<td>시간복잡도: <span style="color:yellow">O(V*E)</span></td>
-<td>시간복잡도: <span style="color:yellow">O(V³)</span></td>
+<td>시간복잡도: <b>O(E)</b></td>
+<td>시간복잡도: <b>O(E*logV)</b></td>
+<td>시간복잡도: <b>O(V*E)</b></td>
+<td>시간복잡도: <b>O(V³)</b></td>
 </tr>
 <tr>
-<td>하나의 특정 정점에서 다른 정점들까지의 최단 경로를 구함<br><span style="color:yellow">1 : N</span></td>
-<td>하나의 특정 정점에서 다른 정점들까지의 최단 경로를 구함<br><span style="color:yellow">1 : N</span></td>
-<td>하나의 특정 정점에서 다른 정점들까지의 최단 경로를 구함<br><span style="color:yellow">1 : N</span></td>
-<td>모든 정점들간의 쌍에 대해 최단 경로를 한번에 구함<br><span style="color:yellow">N : N</span></td>
+<td>하나의 특정 정점에서 다른 정점들까지의 최단 경로를 구함<br><b>1 : N</b></td>
+<td>하나의 특정 정점에서 다른 정점들까지의 최단 경로를 구함<br><b>1 : N</b></td>
+<td>하나의 특정 정점에서 다른 정점들까지의 최단 경로를 구함<br><b>1 : N</b></td>
+<td>모든 정점들간의 쌍에 대해 최단 경로를 한번에 구함<br><b>N : N</b></td>
 </tr>
 </table>
