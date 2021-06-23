@@ -2,7 +2,7 @@
 
 ## 📚종류
 - BFS
-- 0-1 BFS
+- [0-1 BFS](https://github.com/seonpilKim/Algorithm/tree/master/Shortest%20Path/0-1%20BFS)
 - 다익스트라(Dijkstra)
 - 벨만포드(Bellman Ford)
 - [플로이드 와샬(Floyd Warshall)](https://github.com/seonpilKim/Algorithm/tree/master/Shortest%20Path/Floyd%20Warshall)
@@ -27,7 +27,7 @@ ___
 </tr>
 <tr>
 <td>가중치❌</td>
-<td>가중치가 <b>서로 다른 두 개</b> 있을 때만 가능</td>
+<td>가중치가 <b>서로 다른 두 종류</b>가 있을 때만 가능</td>
 <td>가중치가 <b>양의 정수</b>일 때만 가능</td>
 <td>가중치가 <b>음의 정수</b>일 때도 가능</td>
 <td>가중치가 <b>음의 정수</b>일 때도 가능</td>
