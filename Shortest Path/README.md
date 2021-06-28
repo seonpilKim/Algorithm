@@ -1,7 +1,7 @@
 # 최단 경로(Shortest Path) 알고리즘
 
 ## 📚종류
-- BFS
+- [BFS](https://github.com/seonpilKim/Algorithm/tree/master/BFS)
 - [0-1 BFS](https://github.com/seonpilKim/Algorithm/tree/master/Shortest%20Path/0-1%20BFS)
 - 다익스트라(Dijkstra)
 - 벨만포드(Bellman Ford)
