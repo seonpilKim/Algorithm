@@ -3,7 +3,7 @@
 ## 📚종류
 - [BFS](https://github.com/seonpilKim/Algorithm/tree/master/BFS)
 - [0-1 BFS](https://github.com/seonpilKim/Algorithm/tree/master/Shortest%20Path/0-1%20BFS)
-- 다익스트라(Dijkstra)
+- [다익스트라(Dijkstra)](https://github.com/seonpilKim/Algorithm/tree/master/Dijkstra)
 - 벨만포드(Bellman Ford)
 - [플로이드 와샬(Floyd Warshall)](https://github.com/seonpilKim/Algorithm/tree/master/Shortest%20Path/Floyd%20Warshall)
 ___
