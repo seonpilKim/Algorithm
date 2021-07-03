@@ -27,11 +27,11 @@ vector<vector<int>> adj(N + 1, vector<int>());
 vector<int> result(N + 1);
 
 void input(){
-    int n1, n2;
+    int v1, v2;
     for (int i = 0; i < M; i++) {
-    	cin >> n1 >> n2;
-    	people[n1].push_back(n2);
-    	degree[n2]++;
+    	cin >> v1 >> v2;
+    	adj[n1].push_back(v2);
+    	inDegree[v2]++;
     }
 }
 
