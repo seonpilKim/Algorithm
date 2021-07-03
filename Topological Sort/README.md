@@ -38,7 +38,7 @@ void input(){
 bool topologicalSort(){
     queue<int> q;
     for (int i = 1; i <= N; i++)
-    	if (degree[i] == 0)
+    	if (inDegree[i] == 0)
     		q.push(i);
 
     for(int i = 1; i <= N; i++) {
@@ -49,9 +49,9 @@ bool topologicalSort(){
     	q.pop();
     	result[i] = cur;
 
-    	for (int i = 0; i < people[cur].size(); i++) {
-    		int next = people[cur][i];
-    		if (--degree[next] == 0)
+    	for (int i = 0; i < adj[cur].size(); i++) {
+    		int next = adj[cur][i];
+    		if (--inDegree[next] == 0)
     			q.push(next);
     	}
     }
