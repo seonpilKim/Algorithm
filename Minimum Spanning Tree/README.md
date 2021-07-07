@@ -48,7 +48,7 @@ ___
 		vector<int> _rank;
 
 		int find(int);
-		int merge(int, int);
+		void merge(int, int);
 
 		int kruskal() {
 			int res = 0;
