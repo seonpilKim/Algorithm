@@ -144,9 +144,9 @@ ___
 				res += minWeight[u];
 				added[u] = true; // 정점 u가 MST에 포함되어 있음을 표시
 		
-				for (int i = 0; i < adj[u].size(); i++) { // 정점 u에 연결된 정점들 탐색
-					int v = adj[u][i].first;
-					int weight = adj[u][i].second;
+				for (int j = 0; j < adj[u].size(); j++) { // 정점 u에 연결된 정점들 탐색
+					int v = adj[u][j].first;
+					int weight = adj[u][j].second;
 		
 					if (!added[v] && minWeight[v] > weight) { // 정점 v가 MST에 포함되지 않고, (u, v)의 가중치가 현재까지 탐색한 정점 v의 간선 중 최소인 경우
 						par[v] = u; // 정점 v을 MST의 정점 u와 연결 
