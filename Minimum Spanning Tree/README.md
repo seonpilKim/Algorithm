@@ -136,24 +136,26 @@ ___
 				int u = -1;
 		
 				for (int v = 1; v <= V; v++)
-					if (!added[v] && (u == -1 || minWeight[u] > minWeight[v]))
+					if (!added[v] && (u == -1 || minWeight[u] > minWeight[v])) // 정점 v가 MST에 속하지 않고, 현재까지 탐색한 가중치보다 더 작은 가중치 간선을 가진다면, 정점 u로 갱신
 						u = v;
 		
-				if (par[u] != u)
-					MST.emplace_back(par[u], u);
+				if (par[u] != u) 
+					MST.emplace_back(par[u], u); // 정점 u를 MST에 추가
 				res += minWeight[u];
-				added[u] = true;
+				added[u] = true; // 정점 u가 MST에 포함되어 있음을 표시
 		
-				for (int i = 0; i < adj[u].size(); i++) {
+				for (int i = 0; i < adj[u].size(); i++) { // 정점 u에 연결된 정점들 탐색
 					int v = adj[u][i].first;
 					int weight = adj[u][i].second;
 		
-					if (!added[v] && minWeight[v] > weight) {
-						par[v] = u;
-						minWeight[v] = weight;
+					if (!added[v] && minWeight[v] > weight) { // 정점 v가 MST에 포함되지 않고, (u, v)의 가중치가 현재까지 탐색한 정점 v의 간선 중 최소인 경우
+						par[v] = u; // 정점 v을 MST의 정점 u와 연결 
+						minWeight[v] = weight; // (u, v)의 가중치
 					}
 				}
 			}
+		
+			return res; // 최소 신장 트리의 가중치 합
 		}		
 		```
 ### 두 알고리즘의 정당성 증명
