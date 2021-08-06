@@ -23,11 +23,11 @@ vector<vector<int>> costs(n + 1, vector<int>(n + 1, NONE));
 vector<int> citys(n + 1, INF);
 
 citys[start] = 0;
-pq.emplace(start, citys[start]);
+pq.emplace(citys[start], start);
 
 while (!pq.empty()) {
-	int curCity = pq.top().first;
-	int curCost = pq.top().second;
+	int curCost = pq.top().first;
+	int curCity = pq.top().second;
 	pq.pop();
 
 	if (citys[curCity] < curCost) // 이미 더 짧은 경로로 갱신되어 있다면, 생략
@@ -40,7 +40,7 @@ while (!pq.empty()) {
 		int nextCost = curCost + costs[curCity][nextCity];
 		if (citys[nextCity] > nextCost) { // 더 짧은 경로를 발견하면, 갱신하고 우선순위 큐에 삽입
 			citys[nextCity] = nextCost;
-			pq.emplace(nextCity, nextCost);
+			pq.emplace(nextCost, nextCity);
 		}
 	}
 }
