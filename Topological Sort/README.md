@@ -41,26 +41,24 @@ void input(){
 
 bool topologicalSort(const vector<vector<int>>& adj, vector<int>& inDegree, const int& N, vector<int>& result) {
     queue<int> q;
-    vector<int> result(N + 1);
 
     for (int i = 1; i <= N; i++)
         if (inDegree[i] == 0)
             q.push(i);
 
-    for (int i = 1; i <= N; i++) {
+    for (int u = 1; u <= N; u++) {
         if (q.empty())
             return false;
 
         int cur = q.front();
         q.pop();
-        result[i] = cur;
 
-        for (int i = 0; i < adj[cur].size(); i++) {
-            int next = adj[cur][i];
+        result[u] = cur;     
+        for (int next : adj[cur]) 
             if (--inDegree[next] == 0)
                 q.push(next);
-        }
     }
+
     return true;
 }
 ```
