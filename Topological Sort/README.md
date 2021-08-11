@@ -21,39 +21,45 @@
 ___
 ## 💻구현
 ```c++
-int N;
-vector<int> inDegree(N + 1);
-vector<vector<int>> adj(N + 1, vector<int>());
-vector<int> result(N + 1);
-
 void input(){
+    int N;
+    cin >> N;
+    
+    vector<int> inDegree(N + 1);
+    vector<vector<int>> adj(N + 1, vector<int>());
+    vector<int> result(N + 1);
+
     int v1, v2;
     for (int i = 0; i < M; i++) {
     	cin >> v1 >> v2;
-    	adj[n1].push_back(v2);
+    	adj[v1].push_back(v2);
     	inDegree[v2]++;
     }
+    
+    topologicalSort(adj, inDegree, N, result);
 }
 
-bool topologicalSort(){
+bool topologicalSort(const vector<vector<int>>& adj, vector<int>& inDegree, const int& N, vector<int>& result) {
     queue<int> q;
-    for (int i = 1; i <= N; i++)
-    	if (inDegree[i] == 0)
-    		q.push(i);
+    vector<int> result(N + 1);
 
-    for(int i = 1; i <= N; i++) {
+    for (int i = 1; i <= N; i++)
+        if (inDegree[i] == 0)
+            q.push(i);
+
+    for (int i = 1; i <= N; i++) {
         if (q.empty())
             return false;
 
-    	int cur = q.front();
-    	q.pop();
-    	result[i] = cur;
+        int cur = q.front();
+        q.pop();
+        result[i] = cur;
 
-    	for (int i = 0; i < adj[cur].size(); i++) {
-    		int next = adj[cur][i];
-    		if (--inDegree[next] == 0)
-    			q.push(next);
-    	}
+        for (int i = 0; i < adj[cur].size(); i++) {
+            int next = adj[cur][i];
+            if (--inDegree[next] == 0)
+                q.push(next);
+        }
     }
     return true;
 }
