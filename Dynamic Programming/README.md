@@ -15,6 +15,14 @@ ___
 - <b>시간 복잡도 분석</b>
     - `부분 문제의 총 개수` * `부분 문제를 풀 때 필요한 반복문의 수행 횟수`
 ___
+## 📂알고리즘 종류
+- LIS -> Binary Search가 더 효율적
+- [LCS](https://github.com/seonpilKim/Algorithm/tree/master/Dynamic%20Programming/LCS)
+- Coin Change Problem
+- Knapsack
+- Edit Distance
+- Matrix Chain Multiplication
+___
 ## ✅조건
 - 큰 문제를 작은 문제들로 나눌 수 있는 경우
 - 작은 문제들이 반복되는 경우
