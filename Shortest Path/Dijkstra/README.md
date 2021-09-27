@@ -18,29 +18,29 @@
 ___
 ## 💻구현
 ```c++
-priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // 우선순위 큐 이용
-vector<vector<int>> costs(n + 1, vector<int>(n + 1, NONE));
-vector<int> citys(n + 1, INF);
+void dijkstra(const vector<vector<pair<int, int>>>& adj, vector<int>& dist, const int& start) {
+	dist[start] = 0;
 
-citys[start] = 0;
-pq.emplace(citys[start], start);
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+	pq.emplace(0, start);
 
-while (!pq.empty()) {
-	int curCost = pq.top().first;
-	int curCity = pq.top().second;
-	pq.pop();
+	while (!pq.empty()) {
+		int curDist = pq.top().first;
+		int pos = pq.top().second;
+		pq.pop();
 
-	if (citys[curCity] < curCost) // 이미 더 짧은 경로로 갱신되어 있다면, 생략
-		continue;
-
-	for (int nextCity = 1; nextCity <= n; nextCity++) {
-		if (costs[curCity][nextCity] == NONE) // 경로가 없다면, 생략
+		if (dist[pos] < curDist)
 			continue;
 
-		int nextCost = curCost + costs[curCity][nextCity];
-		if (citys[nextCity] > nextCost) { // 더 짧은 경로를 발견하면, 갱신하고 우선순위 큐에 삽입
-			citys[nextCity] = nextCost;
-			pq.emplace(nextCost, nextCity);
+		for (auto dest : adj[pos]) {
+			int nextPos = dest.first;
+			int nextDist = dest.second;
+			int sum = curDist + nextDist;
+
+			if (dist[nextPos] > sum) {
+				dist[nextPos] = sum;
+				pq.emplace(sum, nextPos);
+			}
 		}
 	}
 }
