@@ -1,64 +1,71 @@
-# [[2467] 용액](https://www.acmicpc.net/problem/2467)
+# [[15790] 최종병기 활](https://www.acmicpc.net/problem/15790)
 
 ![](imgs/1.PNG)
 ![](imgs/2.PNG)
 ___
 ## 🤔접근
-1. <b>음수만 있는 경우, 양수만 있는 경우, 음수와 양수가 섞인 경우로 나누자.</b>
-	- 음수만 있는 경우에는 가장 큰 두 값을 더한 것이 가장 0에 가깝다.
-	- 양수만 있는 경우에는 가장 작은 두 값을 더한 것이 가장 0에 가깝다.
-	- 음수와 양수가 섞인 경우에는 두 수 합의 절댓값이 작을수록 0에 가깝다.
-2. <b>각 수마다 다른 수끼리 모두 더해보면서 최적의 값을 구하자.</b>
-	- 단순히 완전 탐색을 하면 O(N²)으로 TLE이다.
-	- O(NlogN) 이하로 구할 수 있는 방법은 없을까? -> 이분탐색!
+
 ___
 ## 💡풀이
-- <B>이분 탐색(Binary Search) 알고리즘</B>을(를) 사용하였다.
-	- 음수만 존재하거나, 양수만 존재하는 경우 O(1)으로 구할 수 있다.
-		- 음수만 존재: v[last - 1], v[last]
-		- 양수만 존재: v[first], v[first + 1]
-	- 음수와 양수가 모두 존재하는 경우, 이분 탐색으로 최적의 값을 구하자.
-		- N개의 수를 각각 한 번씩 선택(i)하고, i + 1부터 마지막 값까지 이분 탐색을 진행하자.
-		- 선택한 값과 이분 탐색으로 찾은 값을 더했을 때, 아래와 같이 탐색 범위를 좁혀나가자.
-			- 두 수를 더한 값이 `양수`: high = mid - 1
-			- 두 수를 더한 값이 `음수`: low = mid + 1
-		- 탐색 범위를 좁힌 다음, 두 수를 더한 값의 절댓값이 가장 최솟값이라면 갱신하자.
+- <b>알고리즘 & 자료구조</b>
+	- `이분 탐색`
+- <b>구현</b>
+	- 이분 탐색으로 만들 수 있는 가장 긴 활의 길이를 찾는다.
+		- 각 홈을 한 번씩 시작지점으로 잡은 다음 아래의 결과에 따라 범위를 다르게 좁혀나갔다.
+			- 두 홈 간의 길이가 `mid 이상`인 개수가 `K개 이상`이라면, 활의 길이를 더 길게 만들어 본다.
+			- 그렇지 않다면, 활의 길이를 더 짧게 만들어 본다.
 ___
 ## ✍ 피드백
 ___
 ## 💻 핵심 코드
 ```c++
+bool isPossible(const vector<int>& pos, int src, int len, int cnt) {
+	int cur = src;
+	int next = (src + 1) % M;
+
+	while (src != next) {
+		if ((pos[next] - pos[cur] + N) % N >= len) { // 두 홈 간의 길이가 len 이상인지 확인
+			cur = next;
+			if (++cnt == K) // 마지막 홈에서 처음 홈까지 길이가 len 이상인지 확인
+				return ((pos[src] - pos[cur] + N) % N >= len ? true : false);
+		}
+		next = (next + 1) % M;
+	}
+
+	return false;
+}
+
 int main() {
 	...
 
-	if (hasNegative && hasPositive) { // Negative + Positive
-		for (int i = 0; i < N - 1; i++) {
-			int low = i + 1, high = N - 1;
-			int mid, cur = v[i], target;
-			while (low <= high) {
-				mid = (low + high) / 2;
-				target = v[mid];
+	cin >> N >> M >> K; // 고무줄 둘레, 절단 가능한 홈의 개수, 필요한 고무줄 겹 수
 
-				if (cur + target > 0)
-					high = mid - 1;
-				else
-					low = mid + 1;
+	vector<int> pos(M); // 고무줄 파인 홈의 위치
+	for (int i = 0; i < M; i++)
+		cin >> pos[i];
 
-				if (minSum > abs(cur + target)) {
-					minSum = abs(cur + target);
-					idx[0] = i;
-					idx[1] = mid;
+	if (K == 1)
+		cout << N;
+	else {
+		int low = 1, high = N;
+
+		while (low <= high) { // 이분 탐색으로 만들 수 있는 가장 긴 활의 길이 찾기
+			int mid = (low + high) / 2; // 활의 길이
+			bool flag = false;
+
+			// 모든 홈을 각각 시작 홈으로 설정 -> 가장 왼쪽(처음) 홈을 찾기 위함
+			for (int i = 0; i < M; i++) {
+				// 길이가 mid인 K개의 고무줄을 만들 수 있는지 확인
+				if (isPossible(pos, i, mid, 1)) {
+					flag = true;
+					break;
 				}
 			}
+
+			flag ? low = mid + 1 : high = mid - 1;
 		}
-	}
-	else if (hasNegative) { // only Negative
-		idx[0] = N - 2;
-		idx[1] = N - 1;
-	}
-	else if (hasPositive) { // only Positive
-		idx[0] = 0;
-		idx[1] = 1;
+
+		cout << high;
 	}
 
 	...
