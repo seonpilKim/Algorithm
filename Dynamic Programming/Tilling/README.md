@@ -8,4 +8,5 @@
             > `dp[1]` -> 1 x 2 타일만 채울 수 있으므로 경우의 수는 1<br>
             > `dp[2]` -> 1 x 2 타일 두 개 혹은 2 x 1 타일 두 개를 채울 수 있으므로 경우의 수는 2
 ## 📂종류
+- [벽: `2 x N` | 타일: `2 x 1, 1 x 2`](https://github.com/seonpilKim/Algorithm/tree/master/Dynamic%20Programming/Tilling/boj/11726)
 - [벽: `3 x N` | 타일: `2 x 1, 1 x 2`](https://github.com/seonpilKim/Algorithm/tree/master/Dynamic%20Programming/Tilling/boj/2133)
