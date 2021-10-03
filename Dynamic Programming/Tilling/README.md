@@ -7,4 +7,5 @@
             > <b>ex) 2 x n 크기의 벽에, 2 x 1, 1 x 2 타일을 채울 수 있는 경우의 수</b><br>
             > `dp[1]` -> 1 x 2 타일만 채울 수 있으므로 경우의 수는 1<br>
             > `dp[2]` -> 1 x 2 타일 두 개 혹은 2 x 1 타일 두 개를 채울 수 있으므로 경우의 수는 2
-    
+## 📂종류
+- [벽: `3 x N` | 타일: `2 x 1, 1 x 2`](https://github.com/seonpilKim/Algorithm/tree/master/Dynamic%20Programming/Tilling/boj/2133)
