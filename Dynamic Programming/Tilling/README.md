@@ -10,4 +10,5 @@
 ## 📂종류
 - [벽: `2 x N` | 타일: `2 x 1, 1 x 2`](https://github.com/seonpilKim/Algorithm/tree/master/Dynamic%20Programming/Tilling/boj/11726)
 - [벽: `2 x N` | 타일: `2 x 1, 1 x 2, 2 x 2`](https://github.com/seonpilKim/Algorithm/tree/master/Dynamic%20Programming/Tilling/boj/11727)
+- [벽: `2 x N` | 타일: `1 x 1, 2 x 1, 1 x 2`](https://github.com/seonpilKim/Algorithm/tree/master/Dynamic%20Programming/Tilling/boj/14852)
 - [벽: `3 x N` | 타일: `2 x 1, 1 x 2`](https://github.com/seonpilKim/Algorithm/tree/master/Dynamic%20Programming/Tilling/boj/2133)
