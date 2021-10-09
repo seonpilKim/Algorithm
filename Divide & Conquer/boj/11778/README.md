@@ -43,10 +43,17 @@ long long getFibonacci(long long n) {
 	return res[0][1];
 }
 
+long long getGcd(long long a, long long b) {
+	if (b == 0)
+		return a;
+
+	return getGcd(b, a % b);
+}
+
 int main() {
 	...
 
-	cout << (getFibonacci(b + 2) - getFibonacci(a + 1) + MOD) % MOD;
+	cout << getFibonacci(getGcd(a, b));
 
 	...
 }
