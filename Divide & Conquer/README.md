@@ -59,7 +59,37 @@ ___
         return half * half;
     }
     ```
-- 시간 복잡도: `O(log₂N)`
+    - 시간 복잡도: `O(log₂N)`
+- <b>큰 피보나치 수</b>
+    ```c++
+    typedef vector<vector<long long>> matrix;
+    matrix operator* (const matrix& A, const matrix& B) {
+    	int n = A.size();
+    	matrix res(n, vector<long long>(n));
+
+    	for (int i = 0; i < n; i++)
+    		for (int j = 0; j < n; j++)
+    			for (int k = 0; k < n; k++)
+    				res[i][j] = (res[i][j] + A[i][k] * B[k][j]) % MOD;
+
+    	return res;
+    }
+
+    long long getFibonacci(long long n) {
+    	matrix res = {{1, 0}, {0, 1}};
+    	matrix c = {{1, 1}, {1, 0}};
+
+    	while (n) {
+    		if (n % 2)
+    			res = res * c;
+    		c = c * c;
+    		n /= 2;
+    	}
+
+    	return res[0][1];
+    }
+    ```
+    - 시간 복잡도: `O(M³log₂N)`
 ### 3. 병합 정렬(Merge Sort)
 - <b>정렬 과정</b>
     1. 주어진 수열을 가운데에서 `쪼개 비슷한 크기의 수열 두 개`로 만든 뒤, 이들을 재귀 호출을 이용하여 각각 정렬한다.
