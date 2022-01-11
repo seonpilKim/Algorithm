@@ -17,43 +17,26 @@
 ___
 ## 💻구현
 ```c++
-void bellman_ford(const vector<vector<pair<int, int>>> adj, vector<long long>& dist, const int& start) {
-	int n = dist.size() - 1;
-	dist[start] = 0;
-
-	for (int i = 1; i < n; i++) {
-		for (int cur = 1; cur <= n; cur++) {
-			if (dist[cur] == INF)
-				continue;
-
-			for (auto next : adj[cur]) 
-				dist[next.first] = min(dist[next.first], dist[cur] + next.second);
-		}
-	}
-}
-```
-```c++
-// 음수 사이클 확인
 bool bellman_ford(const vector<vector<pair<int, int>>> adj, vector<long long>& dist, const int& start) {
-	bool isNegativeCycle = false;
-	int n = dist.size();
-	dist[start] = 0;
+    bool isNegativeCycle = false;
+    int n = dist.size() - 1;
+    dist[start] = 0;
 
-	for (int i = 1; i < n; i++) {
-		for (int cur = 1; cur < n; cur++) {
-			if (dist[cur] == INF)
-				continue;
+    for (int i = 1; i <= n; i++) {
+        for (int cur = 1; cur <= n; cur++) {
+            if (dist[cur] == INF)
+                continue;
 
-			for (auto next : adj[cur]) {
-				if (dist[next.first] > dist[cur] + next.second) {
-					dist[next.first] = dist[cur] + next.second;
-					if (i == n - 1)
-						isNegativeCycle = true;
-				}
-			}
-		}
-	}
+            for (auto next : adj[cur]) {
+                if (dist[next.first] > dist[cur] + next.second) {
+                    dist[next.first] = dist[cur] + next.second;
+                    if (i == n)
+                        isNegativeCycle = true;
+                }
+            }
+        }
+    }
 
-	return isNegativeCycle;
+    return isNegativeCycle;
 }
 ```
