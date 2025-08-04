@@ -41,66 +41,46 @@ ___
 		- `O(|E|log₂|E|)`
 		- 그래프 내에 적은 숫자의 간선을 갖는 `희소 그래프(Sparse Graph)`의 경우에 적합한 알고리즘이다.
 	- <b>💻구현 코드</b>
-		```c++
-		int V; // 정점 개수
-		vector<vector<pair<int, int>>> adj; // 그래프 인접 리스트(연결된 정점 번호, 간선 가중치)
-		vector<int> par;
-		vector<int> _rank;
+```c++
+struct Edge {
+    int u, v, cost;
+};
 
-		int find(int);
-		void merge(int, int);
+vector<Edge> edges;
+vector<int> parent; // 유니온 파인드용
 
-		int kruskal() {
-			int res = 0;
-			vector<pair<int, int>> MST; // 최소 신장 트리에 포함된 간선 목록
-			vector<pair<int, pair<int, int>>> edges; // 간선 (가중치, (정점1, 정점2))
+// 유니온 파인드
+int find(int x) {
+    if (parent[x] == x) return x;
+    return parent[x] = find(parent[x]);
+}
 
-			for (int u = 1; u <= V; u++) {
-				for (int i = 0; i < adj[u].size(); i++) {
-					int v = adj[u][i].first;
-					int weight = adj[u][i].second;
-					edges.emplace_back(weight, make_pair(u, v));
-				}
-			}
-			sort(edges.begin(), edges.end()); // 간선 가중치 오름차순으로 정렬
+bool unite(int x, int y) {
+    x = find(x); y = find(y);
+    if (x == y) return false; // 이미 연결
+    parent[y] = x;
+    return true;
+}
 
-			for (int i = 0; i < edges.size(); i++) {
-				int weight = edges[i].first;
-				int u = edges[i].second.first;
-				int v = edges[i].second.second;
+int kruskal(int V) {
+    int total_cost = 0;
+    sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
+        return a.cost < b.cost;
+    });
 
-				if (find(u) == find(v)) // 사이클 방지
-					continue;
+    parent.resize(V);
+    for (int i = 0; i < V; i++) parent[i] = i;
 
-				merge(u, v);
-				MST.emplace_back(u, v);
-				res += weight;
-			}
+    for (Edge e : edges) {
+        if (unite(e.u, e.v)) {
+            total_cost += e.cost;
+        }
+    }
 
-			return res; // 최소 신장 트리의 가중치 합
-		}	
-
-		int find(int u) {
-			if (u == par[u])
-				return u;
-			return par[u] = find(par[u]);
-		}
-
-		void merge(int u, int v) {
-			u = find(u);
-			v = find(v);
-
-			if (u == v)
-				return;
-			if (_rank[u] < _rank[v])
-				swap(u, v);
-
-			par[v] = u;
-
-			if (_rank[u] == _rank[v])
-				_rank[u]++;
-		}	
-		```
+    return total_cost;
+}
+	
+```
 	___
 2. <b>⭐Prim MST 알고리즘⭐</b>
 	- <b>📖개념</b>
@@ -120,44 +100,33 @@ ___
 		- `우선순위 큐`를 이용하여 구현하는 방법도 존재한다.
 			- `O(|E|log₂|V|)`
 	- <b>💻구현 코드</b>
-		```c++
-		int V; // 정점 개수
-		vector<vector<pair<int, int>>> adj; // 그래프 인접 리스트(연결된 정점 번호, 간선 가중치)
-		
-		int prim() {
-			int res = 0;
-			vector<pair<int, int>> MST; // 최소 신장 트리에 포함된 간선 목록
-			vector<bool> added(V, false); // 해당 정점이 트리에 포함?
-			vector<int> minWeight(V, INF); // 트리와 정점을 연결하는 간선의 최소 가중치
-			vector<int> par(V, -1); // 트리와 정점을 연결하는 간선의 다른 한쪽 끝 정점
-		
-			minWeight[0] = par[0] = 0;
-			for (int i = 0; i < V; i++) {
-				int u = -1;
-		
-				for (int v = 1; v <= V; v++)
-					if (!added[v] && (u == -1 || minWeight[u] > minWeight[v])) // 정점 v가 MST에 속하지 않고, 현재까지 탐색한 가중치보다 더 작은 가중치 간선을 가진다면, 정점 u로 갱신
-						u = v;
-		
-				if (par[u] != u) 
-					MST.emplace_back(par[u], u); // 정점 u를 MST에 추가
-				res += minWeight[u];
-				added[u] = true; // 정점 u가 MST에 포함되어 있음을 표시
-		
-				for (int j = 0; j < adj[u].size(); j++) { // 정점 u에 연결된 정점들 탐색
-					int v = adj[u][j].first;
-					int weight = adj[u][j].second;
-		
-					if (!added[v] && minWeight[v] > weight) { // 정점 v가 MST에 포함되지 않고, (u, v)의 가중치가 현재까지 탐색한 정점 v의 간선 중 최소인 경우
-						par[v] = u; // 정점 v을 MST의 정점 u와 연결 
-						minWeight[v] = weight; // (u, v)의 가중치
-					}
-				}
-			}
-		
-			return res; // 최소 신장 트리의 가중치 합
-		}		
-		```
+```c++
+// 최소 신장 트리를 구성할 정점 수 V, 인접 리스트 graph (pair<비용, 정점>)
+vector<vector<pair<int, int>>> graph; // graph[u] = {{cost, v}, ...}
+vector<bool> visited(V, false);
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+
+int prim(int start) {
+    int total_cost = 0;
+    pq.push({0, start}); // 시작 정점
+
+    while (!pq.empty()) {
+        auto [cost, u] = pq.top(); pq.pop();
+        if (visited[u]) continue;
+        visited[u] = true;
+        total_cost += cost;
+
+        for (auto [next_cost, v] : graph[u]) {
+            if (!visited[v]) {
+                pq.push({next_cost, v});
+            }
+        }
+    }
+
+    return total_cost;
+}
+	
+```
 ### 두 알고리즘의 정당성 증명
 - 두 알고리즘은 `탐욕적인 방법(greedy method)`을 이용하여 그래프의 모든 정점을 최소 비용으로 연결하는 최적 해답을 구하는 방식이다.
 - 탐욕적 선택 속성은 다음과 같이 `귀류법`으로 증명할 수 있다.
