@@ -18,7 +18,7 @@ int n; // 정점 개수
 vector<vector<int>> weights(n, vector<int>(n)); // 정점 간 거리
 
 for (int mid = 1; mid <= n; mid++) {
-	for (int start = 1; start <= n; start++) {
+	for (int start = 1; start <= n; start++) { // 중간에 추가되는 노드가 있는 경우, 최단 거리를 업데이트 하는 목적
         // 최적화. 간선이 적을 수록 효율적
 		if (weights[start][mid] == MAX)
 			continue;
