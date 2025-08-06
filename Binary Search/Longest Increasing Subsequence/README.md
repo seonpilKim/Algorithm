@@ -21,34 +21,37 @@
 	- LIS를 만들 수 있는 경우의 수 구하기
 ### 💻구현
 ```c++
-vector<int> findLIS(int N) {
+vector<int> findLIS(int n) {
 	vector<int> LIS;
-	vector<pair<int, int>> arr(N); // <element, length of LIS>
-	for (int i = 0; i < N; i++)
+	vector<pair<int, int>> arr(n); // <element, length of LIS>
+	for (int i = 0; i < n; i++)
 		cin >> arr[i].first;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < n; i++) {
 		int idx = lower_bound(LIS.begin(), LIS.end(), arr[i].first) - LIS.begin();
-		if (LIS.empty() || LIS.back() < arr[i].first) 
+		if (LIS.empty() || LIS.back() < arr[i].first)
 			LIS.push_back(arr[i].first);
-		else 
+		else
 			LIS[idx] = arr[i].first;
 		arr[i].second = idx;
 	}
-	int len = LIS.size() - 1;
-	LIS.clear();
-	LIS.resize(len);
 
-	for (int i = N - 1; i >= 0; i--) {
+	stack<int> s;
+	int len = LIS.size() - 1;
+	for (int i = n - 1; i >= 0; i--) {
 		if (arr[i].second == len) {
-			LIS[len] = arr[i].first;
 			s.push(arr[i].first);
 			if (--len < 0)
 				break;
 		}
 	}
 
-	return LIS; // Real LIS
+	LIS.clear();
+	LIS.resize(s.size());
+	for (int i = 0; i < LIS.size(); i++) {
+		LIS[i] = s.top(); s.pop();
+	}
+	return LIS;
 }
 ```
 ___
